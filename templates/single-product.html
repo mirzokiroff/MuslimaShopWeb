@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="page-heading elegant-banner" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2 class="fade-in">{{ product.name }}</h2>
+                    <h3 class="fade-in">Batafsil Ma'lumot</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+
+<!-- ***** Product Area Starts ***** -->
+<section class="section elegant-section" id="product">
+    <div class="container">
+        <!-- Xabarlar ko'rsatish -->
+        {% if messages %}
+        <div class="alert-messages">
+            {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <!-- Mahsulot rasmlari -->
+            <div class="col-lg-8">
+                <div class="product-images">
+                    <!-- Asosiy rasm -->
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image smooth-zoom"
+                         id="main-image">
+
+                    <!-- Qo'shimcha rasmlar slayderi -->
+                    {% if product.images.all %}
+                    <div class="additional-images">
+                        {% for image in product.images.all %}
+                        <img src="{{ image.image.url }}" alt="Additional image for {{ product.name }}"
+                             class="additional-image" data-large-image="{{ image.image.url }}">
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="selected_image" id="selected-image" value="{{ product.image.url }}">
+
+
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <!-- Mahsulot tafsilotlari -->
+            <div class="col-lg-4">
+                <div class="product-details">
+                    <h4>{{ product.name }}</h4>
+                    <span class="price" data-price="{{ product.price }}">{{ product.formatted_price }}</span>
+
+                    <!-- Buyurtmalar soni -->
+                    <div class="quantity-content">
+                        <div class="left-content">
+                            <h6>Buyurtmalar soni</h6>
+                        </div>
+                        <div class="right-content">
+                            <div class="quantity buttons_added">
+                                <button type="button" class="minus">-</button>
+                                <input type="number" step="1" min="1" name="quantity" value="1" title="Qty"
+                                       class="input-text qty text">
+                                <button type="button" class="plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jami narx -->
+                    <div class="total">
+                        <h6>Jami: <span id="total-price">{{ product.formatted_price }}</span></h6>
+                    </div>
+
+                    <!-- Buyurtma berish formasi -->
+                    <form action="{% url 'order_submit' %}" method="post" class="product-order-form">
+                        {% csrf_token %}
+                        <h4>Buyurtma berish</h4>
+
+                        <label for="name">Ismingiz:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="phone">Telefon raqamingiz:</label>
+                        <input type="tel" id="phone" name="phone" required>
+
+                        <!-- Hajm tanlash -->
+                        <h6>Hajm tanlash (majburiy):</h6>
+                        <ul class="sizes size-grid">
+                            {% for size in product.sizes.all %}
+                            <li class="size-option">
+                                <input type="radio" id="size-{{ size.id }}" name="selected_size" value="
+                                    {% if size.name %}{{ size.name }}{% else %}{{ size.size_shoes }}{% endif %}"
+                                       required>
+                                <label for="size-{{ size.id }}">
+                                    {% if size.name %}
+                                    {{ size.name }}
+                                    {% elif size.size_shoes %}
+                                    {{ size.size_shoes }}
+                                    {% else %}
+                                    Noma'lum hajm
+                                    {% endif %}
+                                </label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <!-- Yashirin maydonlar -->
+                        <input type="hidden" id="quantity" name="quantity" value="1" required>
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+
+                        <!-- Buyurtma tugmasi -->
+                        <button type="submit" class="main-border-button">Buyurtma berish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --------- Mavjud script: Mahsulot miqdorini boshqarish ---------
+        const minusButton = document.querySelector('.minus');
+        const plusButton = document.querySelector('.plus');
+        const quantityInput = document.querySelector('.input-text.qty');
+        const hiddenQuantityInput = document.querySelector('#quantity'); // Yashirin "quantity" input maydoni
+        const priceElement = document.querySelector('.price');
+        const totalPriceElement = document.getElementById('total-price');
+        const unitPrice = parseFloat(priceElement.getAttribute('data-price'));
+
+        function updateTotal() {
+            const qty = parseInt(quantityInput.value);
+            const total = unitPrice * qty;
+            totalPriceElement.textContent = total.toLocaleString() + " {{ product.price_type }}";
+            hiddenQuantityInput.value = qty;  // Yashirin "quantity" input qiymatini yangilaymiz
+        }
+
+        minusButton.addEventListener('click', function () {
+            let qty = parseInt(quantityInput.value);
+            if (qty > 1) {
+                quantityInput.value = qty - 1;
+                updateTotal();
+            }
+        });
+
+        plusButton.addEventListener('click', function () {
+            let qty = parseInt(quantityInput.value);
+            quantityInput.value = qty + 1;
+            updateTotal();
+        });
+
+        quantityInput.addEventListener('input', updateTotal);
+
+        // --------- Qo'shimcha script: Rasmlarni tanlash va almashtirish ---------
+        const mainImage = document.getElementById('main-image'); // Asosiy rasm elementi
+        const additionalImages = document.querySelectorAll('.additional-image'); // Qo'shimcha rasmlar
+
+        additionalImages.forEach((image) => {
+            image.addEventListener('click', function () {
+                // Asosiy rasmni tanlangan rasm URL'iga o'zgartirish
+                mainImage.src = this.dataset.largeImage;
+
+                // Aktiv klassni boshqalardan olib tashlash
+                additionalImages.forEach((img) => img.classList.remove('active'));
+
+                // Tanlangan rasmga aktiv klass qo'shish
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+<script>
+    document.querySelectorAll('.additional-image').forEach(image => {
+        image.addEventListener('click', function () {
+            const mainImage = document.getElementById('main-image');
+            const selectedInput = document.getElementById('selected-image');
+
+            mainImage.src = this.dataset.largeImage;  // Asosiy rasmni yangilash
+            selectedInput.value = this.dataset.largeImage;  // Hidden inputni yangilash
+        });
+    });
+
+</script>
+
+
+{% endblock %}

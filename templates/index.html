@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" id="top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-content">
+                        <div class="thumb">
+                            <div class="inner-content">
+                                <h4>Ozoshka Beauty Salon</h4>
+                                <div class="main-border-button">
+                                    <a href="{% url 'beauty_salon' %}">Ko'rish</a>
+                                </div>
+                            </div>
+                            <img src="{% static 'assets/images/left-banner-image.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <div class="row">
+                            {% for category in categories %}
+                                <div class="col-lg-6">
+                                    <div class="right-first-image">
+                                        <div class="thumb">
+                                            <div class="inner-content">
+                                                <h4>{{ category.name }}</h4>
+                                                <span>{{ category.description }}</span>
+                                            </div>
+                                            <div class="hover-content">
+                                                <div class="inner">
+                                                    <h4>{{ category.name }}</h4>
+                                                    <p>Eng So'ngi va Zamonaviy kiyimlar</p>
+                                                    <div class="main-border-button">
+                                                        <a href="
+                                                                
+                                                                
+                                                                {% if category.name == 'Ayollar' %}{% url 'women_products' %}
+                                     {% elif category.name == 'Erkaklar' %}{% url 'men_products' %}
+                                     {% elif category.name == 'Bolalar' %}{% url 'kids_products' %}
+                                     {% elif category.name == 'Aksessuarlar' %}{% url 'accessories_products' %}{% endif %}">
+                                                            Ko'rish
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="{{ category.image.url }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- Men's Area -->
+    <section class="section" id="men">
+        <div class="container">
+            <h2>Erkaklar Kiymlari</h2>
+            <div class="owl-men-item owl-carousel">
+                {% for product in men_products %}
+                    <div class="item">
+                        <!-- Mahsulot rasmini single-page sahifasiga yo'naltirish -->
+                        <a href="{% url 'single_product' product.id %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <h4>{{ product.name }}</h4>
+                        <span>{{ product.price }} {{ product.price_type }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Women's Area -->
+    <section class="section" id="women">
+        <div class="container">
+            <h2>Ayollar Kiyimlari</h2>
+            <div class="owl-women-item owl-carousel">
+                {% for product in women_products %}
+                    <div class="item">
+                        <a href="{% url 'single_product' product.id %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <h4>{{ product.name }}</h4>
+                        <span>{{ product.price }} {{ product.price_type }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Kids' Area -->
+    <section class="section" id="kids">
+        <div class="container">
+            <h2>Bolalar Kiyimlari</h2>
+            <div class="owl-kid-item owl-carousel">
+                {% for product in kids_products %}
+                    <div class="item">
+                        <a href="{% url 'single_product' product.id %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </a>
+                        <h4>{{ product.name }}</h4>
+                        <span>{{ product.price }} {{ product.price_type }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ***** Subscribe Area Starts ***** -->
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <style>
+                        .social-icons {
+                            margin-top: 20px;
+                            display: flex;
+                            gap: 15px;
+                        }
+
+                        .social-icons a {
+                            display: inline-block;
+                            width: 50px;
+                            height: 50px;
+                            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+                            border-radius: 50%;
+                            text-align: center;
+                            line-height: 50px;
+                            transition: all 0.3s ease;
+                            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.7);
+                        }
+
+                        .social-icons a i {
+                            font-size: 24px;
+                            color: #555;
+                            transition: color 0.3s ease;
+                        }
+
+                        .social-icons a:hover {
+                            background: linear-gradient(145deg, #007bff, #0056b3);
+                            box-shadow: 4px 4px 12px rgba(0, 123, 255, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.7);
+                        }
+
+                        .social-icons a:hover i {
+                            color: #fff;
+                        }
+
+                        /* Instagram uchun rangli hover effekti */
+                        .social-icons a.instagram:hover {
+                            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+                            box-shadow: 4px 4px 12px rgba(255, 105, 135, 0.4), -4px -4px 12px rgba(255, 255, 255, 0.7);
+                        }
+
+                        /* Base adjustments for responsiveness */
+                        .main-banner img, .right-content img, .thumb img {
+                            width: 100%;
+                            height: auto;
+                        }
+
+                        /* H4 uchun chiroyli shrift */
+                        .left-content h4 {
+                            font-size: 1.5rem; /* Yozuv o'lchami */
+                            font-weight: bold; /* Qalin yozuv */
+                            color: #333; /* Rang */
+                            text-transform: uppercase; /* Harflarni katta qilish */
+                            letter-spacing: 1px; /* Harflar orasidagi masofa */
+                            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Soyali effekt */
+                            margin-bottom: 10px; /* Pastki masofa */
+                            font-family: 'Arial', sans-serif; /* Shrift */
+                        }
+
+                        /* Hover effekti */
+                        .left-content h4:hover {
+                            color: #6f42c1; /* Hoverda rangni o'zgartirish */
+                            text-shadow: 2px 2px 8px rgba(0, 123, 255, 0.4); /* Hoverda kuchliroq soyali effekt */
+                            transition: all 0.3s ease; /* O'tish effekti */
+                        }
+
+                        /* "Ko'rish" tugmasi uchun uslub */
+                        .main-border-button a {
+                            display: inline-block; /* Tugmani blok ko'rinishida qilish */
+                            padding: 10px 20px; /* Tugma ichidagi masofa */
+                            border: 2px solid #fff; /* Tugmaning chegarasi */
+                            color: #fff; /* Tugma matni rangi */
+                            background-color: transparent; /* Tugma fon rangi */
+                            border-radius: 5px; /* Tugmaning burchaklarini yumshatish */
+                            text-decoration: none; /* Chizish yo'q */
+                            font-weight: bold; /* Tugma matni qalin */
+                            transition: background-color 0.3s ease, color 0.3s ease; /* O'tish effekti */
+                        }
+
+                        /* Hover effekti uchun tugma */
+                        .main-border-button a:hover {
+                            background-color: #6f42c1; /* Hoverda fon rangi */
+                            color: #fff; /* Matn rangi */
+                        }
+
+
+                        /* Mobile styles */
+                        @media (max-width: 768px) {
+                            /* Align content to center and stack elements vertically */
+                            .main-banner .container-fluid,
+                            .main-banner .row,
+                            .right-content .row,
+                            .subscribe .row {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                text-align: center;
+                            }
+
+                            /* Banner area adjustments */
+                            .main-banner .left-content, .main-banner .right-content {
+                                padding: 10px;
+                            }
+
+                            .main-banner h4, .main-banner span {
+                                font-size: 1.2rem;
+                            }
+
+                            .main-border-button a {
+                                padding: 8px 15px;
+                                font-size: 0.9rem;
+                            }
+
+                            /* Make carousel items full width */
+                            .owl-carousel .item {
+                                width: 90%;
+                                margin: 0 auto 15px auto;
+                            }
+
+                            /* Social media section adjustments */
+                            .social-icons {
+                                display: flex;
+                                justify-content: center;
+                                gap: 10px;
+                                margin-top: 15px;
+                            }
+
+                            /* Social media icon size adjustments */
+                            .social-icons a {
+                                width: 40px;
+                                height: 40px;
+                                line-height: 40px;
+                                font-size: 20px;
+                            }
+
+                            /* Subscribe section stacking and centering */
+                            .subscribe .col-lg-8, .subscribe .col-lg-4 {
+                                width: 100%;
+                                margin: 10px 0;
+                            }
+
+                            /* Contact information alignment in subscribe section */
+                            .subscribe ul {
+                                padding: 0;
+                                list-style: none;
+                                text-align: center;
+                            }
+
+                            .subscribe ul li {
+                                font-size: 0.9rem;
+                            }
+                        }
+
+                        /* Tablet styles */
+                        @media (min-width: 769px) and (max-width: 1024px) {
+                            /* Adjust banner padding */
+                            .main-banner .left-content, .main-banner .right-content {
+                                padding: 20px;
+                            }
+
+                            /* Carousel item width */
+                            .owl-carousel .item {
+                                width: 45%;
+                                margin: 0 auto;
+                            }
+                        }
+
+                    </style>
+
+                    <div class="section-heading">
+                        <h3>Chegirmaga ega bo'lish uchun bizning Ijtimoiy Tarmoqlarimizga obuna bo'ling</h3>
+                    </div>
+
+                    <!-- Ijtimoiy Tarmoqlar uchun qism -->
+                    <div class="social-icons">
+                        <a href="https://t.me/Muslimaledy" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com/nail_ozoshka_style" target="_blank" class="instagram"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        {% for about in about_us %}
+                            <div class="col-6">
+                                <ul>
+                                    <li>Do'kon Manzili<br><a
+                                            href="{% url 'about' %}"><span>{{ about.shop_address }}</span></a></li>
+                                    <li>Telefon raqam:<br><a
+                                            href="tel: {{ about.phone }}"><span>{{ about.phone }}</span></a></li>
+                                    <li>Offis Manzili<br><a
+                                            href="{% url 'about' %}"><span>{{ about.office_address }}</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul>
+                                    <li>Ish vaqti: <br><span>{{ about.work_time }}</span></li>
+                                    <li>Pochta Manzili:<br><span>{{ about.email }}</span></li>
+                                    <li>Ijtimoiy Tarmoqlar:<br><span>
+                                    {% for social in social_media %}
+                                        <a href="{{ social.url }}">{{ social.name }}</a>,
+                                    {% endfor %}
+                                        </span></li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Subscribe Area Ends ***** -->
+
+{% endblock %}

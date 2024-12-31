@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Muslima Shop</title>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-hexashop.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl-carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/single-product.css' %}">
+
+
+    <style>
+        .header-area.header-sticky {
+            background-color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Ensures the logo remains fixed at the top */
+        .header-logo {
+            position: fixed;
+            top: -10px;
+            left: 30px;
+            width: 180px; /* Adjust this if needed */
+            z-index: 1000; /* Ensures the logo stays above other elements */
+            background-color: transparent; /* Optional: to prevent overlapping content from being visible */
+        }
+
+
+        /* Mobil menyu tugmasi uchun style */
+        .menu-trigger {
+            display: none;
+            position: fixed;
+            top: 35px;
+            right: 45px;
+            cursor: pointer;
+            z-index: 1001; /* Logotipdan yuqoriroqda bo‘lishi uchun */
+        }
+
+        .menu-trigger i {
+            font-size: 30px;
+            color: #333;
+        }
+
+        /* Kichik ekranlar uchun menyu */
+        @media (max-width: 768px) {
+            .menu-trigger {
+                display: block;
+            }
+
+            .main-nav ul.nav {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+
+            .main-nav.active ul.nav {
+                display: flex;
+            }
+
+            .main-nav ul.nav li {
+                margin-bottom: 10px;
+            }
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<div class="menu-trigger">
+    <span><i class="fas fa-bars"></i></span>
+</div>
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static 'assets/images/muslimashop.png' %}" alt="Logo" class="header-logo">
+                </a>
+            </div>
+            <div class="col-9">
+                <nav class="main-nav">
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="{% url 'home' %}" class="active">Bosh Sahifa</a></li>
+                        <li class="scroll-to-section"><a href="{% url 'men_products' %}">Erkaklar</a></li>
+                        <li class="scroll-to-section"><a href="{% url 'women_products' %}">Ayollar</a></li>
+                        <li class="scroll-to-section"><a href="{% url 'kids_products' %}">Bolalar</a></li>
+                        <li class="submenu">
+                            <a href="javascript:;">Kerakli</a>
+                            <ul>
+                                <li><a href="{% url 'about' %}">Biz Haqimizda</a></li>
+                                <li><a href="{% url 'products' %}">Mahsulotlar</a></li>
+                                <li><a href="{% url 'contact_us' %}">Biz bilan Aloqa</a></li>
+                                <li><a href="{% url 'beauty_salon' %}">Beauty Salon</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:;">Kategoriyalar</a>
+                            <ul>
+                                <li><a href="{% url 'women_products' %}">Ayollar</a></li>
+                                <li><a href="{% url 'men_products' %}">Erkaklar</a></li>
+                                <li><a href="{% url 'kids_products' %}">Bolalar</a></li>
+                                <li><a href="{% url 'accessories_products' %}">Aksessuarlar</a></li>
+                                <li><a href="{% url 'beauty_salon' %}">Beauty Salon</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+{% block container %} {% endblock %}
+
+<!-- ***** Footer Start ***** -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="first-item">
+                    <div class="logo">
+                        <img src="{% static 'assets/images/muslimashop-white.png' %}"
+                             alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <h4>Biz Haqimizda</h4>
+                <ul>
+                    <li><a href="{% url 'about' %}">Tashkent, Uzbekistan</a></li>
+                    <li><a href="https://t.me/Muslimaledy">Muslima Lady Shop</a></li>
+                    <li><a href="tel: {{ about.phone }}">+998 97 539 99 32</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4>Xaridlar &amp; Kategoriyalar</h4>
+                <ul>
+                    <li><a href="{% url 'men_products' %}">Erkaklar Bo'limi</a></li>
+                    <li><a href="{% url 'women_products' %}">Ayollar Bo'limi</a></li>
+                    <li><a href="{% url 'kids_products' %}">Bolalar Bo'limi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4>Kerakli Bo'limlar</h4>
+                <ul>
+                    <li><a href="{% url 'home' %}">Asosiy Sahifa</a></li>
+                    <li><a href="{% url 'about' %}">Biz Haqimizda</a></li>
+                    <li><a href="{% url 'products' %}">Mahsulotlar</a></li>
+                    <li><a href="{% url 'contact_us' %}">Biz bilan Aloqa</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'assets/js/popper.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<!-- Plaginlar -->
+<script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+<script src="{% static 'assets/js/accordions.js' %}"></script>
+<script src="{% static 'assets/js/datepicker.js' %}"></script>
+<script src="{% static 'assets/js/scrollreveal.min.js' %}"></script>
+<script src="{% static 'assets/js/waypoints.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets/js/imgfix.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+
+<script>
+    document.querySelector('.menu-trigger').addEventListener('click', function () {
+        document.querySelector('.main-nav').classList.toggle('active');
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Ozoshka Beauty Salon</h1>
+                <p>Chiroy va xushbo'y hidlar olamiga xush kelibsiz!</p>
+                <a href="#services" class="btn">Bizning xizmatlarimiz</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>Biz haqimizda</h2>
+            <p>Ozoshka Beauty Salon - bu go'zallikni qadrlaydiganlar uchun ajoyib joy. Biz sizni eng yaxshi ko'rinishda
+                his qilish uchun barcha xizmatlarni taqdim etamiz. Zamonaviy uskunalar va tajribali mutaxassislar
+                yordamida
+                sizga sifatli xizmat ko'rsatamiz.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Xizmatlarimiz</h2>
+            <div class="service-grid">
+                {% for salon in beauty_salon %}
+                    <div class="service-item">
+                        <img src="{{ salon.image.url }}" alt="{{ salon.name }}">
+                        <h3>{{ salon.name }}</h3>
+                        {% if salon.price %}
+                            <p>{{ salon.price }} {{ salon.price_type }}</p>
+                        {% endif %}
+                        {% if salon.video %}
+                            <h3>Video</h3>
+                            <video width="320" height="240" controls>
+                                <source src="{{ salon.video.url }}" type="video/mp4">
+                                Sizning brauzeringiz video qo'llab-quvvatlamaydi.
+                            </video>
+                        {% else %}
+                            <h3>Rasm</h3>
+                            <img src="{% static 'assets/images/musliimashop.png' %}" width="320" height="240"
+                                 alt="bu yerda rasm bor edi">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2>Biz bilan bog'laning</h2>
+            <p>Qo'shimcha ma'lumot yoki uchrashuv belgilash uchun biz bilan bog'laning:</p>
+            {% for about in about %}
+                <p><a href="tel:{{ about.phone }}"><strong>Telefon:</strong> {{ about.phone }}</a></p>
+                {% for social in social_media %}
+                    <p><a href="{{ social.url }}"><strong>{{ social.name }}</strong></a></p>{% if not forloop.last %}
+                {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d415.21399127692536!2d68.76309571494748!3d40.93827746421883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2s!4v1729317978797!5m2!1sru!2s"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        {% for about in about %}
+                            <div class="col-6">
+                                <ul>
+                                    <li>Do'kon Manzili<br><span>{{ about.shop_address }}</span></li>
+                                    <li>Telefon raqam:<br><span>{{ about.phone }}</span></li>
+                                    <li>Offis Manzili<br><span>{{ about.office_address }}</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul>
+                                    <li>Ish vaqti: <br><span>{{ about.work_time }}</span></li>
+                                    <li>Pochta Manzili:<br><span>{{ about.email }}</span></li>
+                                    <li>Ijtimoiy Tarmoqlar:<br><span>
+                                    {% for social in social_media %}
+                                        <a href="{{ social.url }}">{{ social.name }} </a>{% if not forloop.last %},
+                                    {% endif %}
+                                    {% endfor %}
+                                        </span></li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        /* Header umumiy stili */
+        .header {
+            width: 100%;
+            background: linear-gradient(135deg, #8a5c2e 0%, #b8860b 100%);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header kontent va logotip */
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .header .logo:hover {
+            color: #e6c57d;
+        }
+
+        /* Navbar */
+        .header .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .header .nav a {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .header .nav a:hover {
+            color: #e6c57d;
+            transform: translateY(-2px);
+        }
+
+        /* Button */
+        .header .btn {
+            padding: 10px 20px;
+            background-color: #e6c57d;
+            color: #8a5c2e;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .header .btn:hover {
+            background-color: #ffd27d;
+            color: #8a5c2e;
+        }
+
+        /* Card bo'limining umumiy stili */
+        .col-lg-4 {
+            background-color: #faf8f5; /* Yengil rang */
+            padding: 30px;
+            border-radius: 15px; /* Yuqoridan va pastdan yumshoq qirralar */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* Hover effekti */
+        .col-lg-4:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sarlavha stili */
+        .col-lg-4 h2 {
+            font-size: 1.8rem;
+            color: rgba(0, 0, 0, 0.68);
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase; /* Harflarni kattalashtirish */
+        }
+
+        /* Ichki blok va elementlar */
+        .col-6 {
+            padding: 15px;
+        }
+
+        /* Ro'yxat stili */
+        ul {
+            list-style-type: none; /* Belgilarni olib tashlash */
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Ro'yxatdagi elementlar */
+        ul li {
+            font-size: 1.05rem;
+            color: #5a5a5a;
+            margin-bottom: 15px;
+            font-weight: 500;
+            line-height: 1.7;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative; /* Pozitsiyani boshqarish uchun */
+        }
+
+        /* Iqtibosli matn */
+        ul li span {
+            font-weight: 400;
+            color: #444444;
+            display: block;
+            margin-top: 4px;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Ijtimoiy tarmoq havolalari */
+        ul li a {
+            color: #a76b3e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        /* Hover effekti */
+        ul li a:hover {
+            color: #8d4e2d;
+            border-bottom: 2px solid #8d4e2d; /* Taglikning qalinligini oshirish */
+        }
+
+        /* Elementlar ustiga bosilganda o'zgarish */
+        ul li:hover {
+            color: #a76b3e;
+            transform: translateX(5px); /* O'ngga siljish */
+        }
+
+        /* Ijtimoiy tarmoq linklarini tartibga solish */
+        ul li span a {
+            margin-right: 5px;
+            color: #8a5c2e;
+            position: relative; /* Pozitsiyani boshqarish uchun */
+        }
+
+        /* Hover effekti */
+        ul li span a:hover {
+            color: #6f3f1d;
+        }
+
+        /* Ikkita ustun orasidagi bo'shliq */
+        .col-lg-4 .row {
+            gap: 20px;
+        }
+
+        /* Ro'yxat elementlari uchun chiroyli chizig' */
+        ul li:before {
+            content: "";
+            position: absolute;
+            left: -15px;
+            top: 10px;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%; /* Dumaloq shakl */
+            background-color: #8a5c2e; /* Rang */
+        }
+
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            color: #2d2d2d;
+            background-color: #f8f3e9;
+        }
+
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('static/assets/images/musliimashop.png') no-repeat center center/cover;
+            color: #fff;
+            padding: 150px 0;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+
+        .hero .btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #b8860b;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: 0.4s ease;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .btn:hover {
+            background-color: #8c7008;
+            transform: scale(1.1);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            text-align: center;
+            animation: slideIn 1.5s ease;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            color: #b8860b;
+            margin-bottom: 25px;
+        }
+
+        .about p {
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            color: #3e3e3e;
+        }
+
+
+        /* Services Section */
+        .services {
+            background-color: #f9f9f9;
+            padding: 50px 0;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* Service Card */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-item {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            text-align: center;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .service-item h3 {
+            font-size: 1.7rem;
+            color: #8a5c2e;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .service-item p {
+            font-size: 1.2rem;
+            color: #ff5722;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+            background-color: #f8f3e9;
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            color: #b8860b;
+            margin-bottom: 35px;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: #3e3e3e;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2d2d2d;
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(60px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about h2 {
+                font-size: 2.5rem;
+            }
+
+            .about p {
+                font-size: 1rem;
+            }
+
+            .services h2 {
+                font-size: 2rem;
+            }
+
+            .service-item {
+                padding: 15px;
+            }
+
+            .service-item img {
+                width: 100%; /* Make images responsive */
+                height: auto; /* Maintain aspect ratio */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .about h2 {
+                font-size: 2rem;
+            }
+
+            .about p {
+                font-size: 0.9rem;
+            }
+
+            .services h2 {
+                font-size: 1.5rem;
+            }
+
+            .service-item {
+                padding: 10px;
+            }
+        }
+
+
+    </style>
+
+{% endblock %}

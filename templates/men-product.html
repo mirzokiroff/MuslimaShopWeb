@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Erkaklar uchun Eng Yaxshilari</h2>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;600&display=swap');
+
+        .page-heading {
+            margin-top: 140px;
+            margin-bottom: 30px;
+            background-image: url("{% static 'assets/images/darkblue.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .page-heading .inner-content {
+            padding: 120px 0;
+            text-align: center;
+            background: rgba(110, 0, 110, 0);
+        }
+
+        .page-heading .inner-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 50px;
+            color: #ffff;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .page-heading .inner-content span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            color: #f8f9fa;
+            font-weight: 400;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** Products Area Starts ***** -->
+    <section class="section" id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading text-center">
+                        <h2 class="section-title">Eng So'ngi Mahsulotlarimiz</h2>
+                        <span class="section-subtitle">Barchasi bilan tanishing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for product in page_obj %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <div class="thumb">
+                                <a href="{% url 'single_product' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </a>
+                                <div class="hover-content">
+                                    <ul>
+                                        <li><a href="{% url 'single_product' product.id %}"><i
+                                                class="fa fa-eye"></i></a></li>
+                                        <li><a href="{% url 'single_product' product.id %}"><i
+                                                class="fa fa-star"></i></a></li>
+                                        <li><a href="{% url 'single_product' product.id %}"><i
+                                                class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="down-content">
+                                <h4>{{ product.name }}</h4>
+                                <span class="price">{{ product.price }} {{ product.price_type }}</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="pagination">
+            <ul>
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}#products"><i class="fa fa-chevron-left"></i></a>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="active"><a href="?page={{ num }}#products">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li><a href="?page={{ num }}#products">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}#products"><i class="fa fa-chevron-right"></i></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+
+    <style>
+        /* General Styling */
+        .section {
+            padding: 80px 0;
+            background-color: #f0f2f5;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-transform: capitalize;
+        }
+
+        .section-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            color: #95a5a6;
+            margin-bottom: 50px;
+        }
+
+        /* Product Item Styling */
+        .product-item {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .thumb {
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            height: 270px;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .thumb:hover img {
+            transform: scale(1.2);
+        }
+
+        .hover-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+
+        .thumb:hover .hover-content {
+            opacity: 1;
+        }
+
+        .hover-content ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .hover-content ul li a {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .hover-content ul li a:hover {
+            background: #ff5733;
+        }
+
+        .down-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .down-content h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .stars {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .stars li {
+            color: #f39c12;
+            font-size: 18px;
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding: 0;
+            width: 100%;
+        }
+
+        .pagination ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .pagination ul li {
+            display: inline-block;
+        }
+
+        .pagination ul li a {
+            color: #007bff;
+            text-decoration: none;
+            line-height: 44px;
+            padding: 0 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 1px solid #2a2a2a;
+            display: inline-block;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            width: 44px;
+            height: 44px;
+        }
+
+        .pagination ul li a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination ul li.active a {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination ul li a i {
+            font-size: 18px;
+            line-height: 44px;
+        }
+    </style>
+
+{% endblock %}

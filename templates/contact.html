@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading about-page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Biz bilan Aloqa</h2>
+                        <span>Bu yerda biz bilan Aloqaga chiqish uchun ma'lumotlar bor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** Contact Area Starts ***** -->
+    <div class="contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d415.21399127692536!2d68.76309571494748!3d40.93827746421883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2s!4v1729317978797!5m2!1sru!2s"
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Contact Area Ends ***** -->
+
+    <!-- ***** Subscribe Area Starts ***** -->
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <style>
+                        .social-icons {
+                            margin-top: 20px;
+                            display: flex;
+                            gap: 15px;
+                        }
+
+                        .social-icons a {
+                            display: inline-block;
+                            width: 50px;
+                            height: 50px;
+                            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+                            border-radius: 50%;
+                            text-align: center;
+                            line-height: 50px;
+                            transition: all 0.3s ease;
+                            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.7);
+                        }
+
+                        .social-icons a i {
+                            font-size: 24px;
+                            color: #555;
+                            transition: color 0.3s ease;
+                        }
+
+                        .social-icons a:hover {
+                            background: linear-gradient(145deg, #007bff, #0056b3);
+                            box-shadow: 4px 4px 12px rgba(0, 123, 255, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.7);
+                        }
+
+                        .social-icons a:hover i {
+                            color: #fff;
+                        }
+
+                        /* Instagram uchun rangli hover effekti */
+                        .social-icons a.instagram:hover {
+                            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+                            box-shadow: 4px 4px 12px rgba(255, 105, 135, 0.4), -4px -4px 12px rgba(255, 255, 255, 0.7);
+                        }
+                    </style>
+
+                    <div class="section-heading">
+                        <h2>Chegirmaga ega bo'lish uchun bizning Ijtimoiy Tarmoqlarimizga obuna bo'ling</h2>
+                    </div>
+
+                    <!-- Ijtimoiy Tarmoqlar uchun qism -->
+                    <div class="social-icons">
+                        <a href="https://t.me/Muslimaledy" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com/nail_ozoshka_style" target="_blank" class="instagram"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        {% for about in about_us %}
+                            <div class="col-6">
+                                <ul>
+                                    <li>Do'kon Manzili<br><span>{{ about.shop_address }}</span></li>
+                                    <li>Telefon raqam:<br><span>{{ about.phone }}</span></li>
+                                    <li>Offis Manzili<br><span>{{ about.office_address }}</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <ul>
+                                    <li>Ish vaqti: <br><span>{{ about.work_time }}</span></li>
+                                    <li>Pochta Manzili:<br><span>{{ about.email }}</span></li>
+                                    <li>Ijtimoiy Tarmoqlar:<br><span>
+                                    {% for social in social_media %}
+                                        <a href="{{ social.url }}">{{ social.name }}</a>,
+                                    {% endfor %}
+                                        </span></li>
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ***** Subscribe Area Ends ***** -->
+
+{% endblock %}

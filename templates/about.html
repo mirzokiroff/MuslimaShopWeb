@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block container %}
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading about-page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Bizni Saytimiz Haqida</h2>
+                        <span>Saytimizda Online Do'kon va Go'zallik Saloni birlashmasi mujassam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** About Area Starts ***** -->
+    <div class="about-us">
+        <div class="container">
+            <div class="row align-items-center"> <!-- align-items-center qo'shildi -->
+                <div class="col-lg-6">
+                    <div class="left-image">
+                        <img src="{% static 'assets/images/about-left-image.jpg' %}" alt="About Image"
+                             class="about-img">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <h4 class="section-title">Biz Haqimizda &amp; Bizning Xizmatlarimiz Haqida</h4>
+                        <span class="sub-title">Biz 03.03.2024 dan beri o'z ish faoliyatimizni yuritib kelamiz</span>
+                        <span class="sub-title">Shu paytgacha do'konimizning barcha mijozlari ishimizdan ma'mnun</span>
+                        <div class="quote">
+                            <i class="fa fa-quote-left"></i>
+                            <p class="quote-text">Halollik Foydadan Ustun!</p>
+                        </div>
+                        <p class="about-description">Saytimiz Go'zallik Salonimiz haqida ham ma'lumot bera oladi</p>
+                        <ul>
+                            <li>
+                                <div class="social-icons">
+                                    <a href="https://t.me/Muslimaledy" target="_blank" class="social-icon"><i
+                                            class="fab fa-telegram"></i></a>
+                                    <a href="https://instagram.com/nail_ozoshka_style" target="_blank"
+                                       class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://mirzokirov1.pythonanywhere.com" target="_blank"
+                                       class="social-icon"><i class="fa fa-globe"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** About Area Ends ***** -->
+
+    <style>
+        /* Overall Styling */
+        .about-us {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .about-us .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .about-us h4 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: left;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .about-us .sub-title {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .about-us .quote {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .about-us .quote i {
+            font-size: 40px;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+        .about-us .quote-text {
+            font-style: italic;
+            color: #555;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .about-us .about-description {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Left Image Styling */
+        .about-img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Social Icons */
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: start;
+        }
+
+        .social-icons .social-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons .social-icon i {
+            font-size: 24px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons .social-icon:hover {
+            background: linear-gradient(145deg, #007bff, #0056b3);
+            box-shadow: 4px 4px 12px rgba(0, 123, 255, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons .social-icon:hover i {
+            color: #fff;
+        }
+
+        /* Instagram uchun rangli hover effekti */
+        .social-icons .social-icon.instagram:hover {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            box-shadow: 4px 4px 12px rgba(255, 105, 135, 0.4), -4px -4px 12px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-us h4 {
+                font-size: 28px;
+            }
+
+            .about-us .sub-title {
+                font-size: 14px;
+            }
+
+            .about-us .quote-text {
+                font-size: 18px;
+            }
+
+            .about-us .about-description {
+                font-size: 16px;
+            }
+
+            .social-icons .social-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .social-icons .social-icon i {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-us .container {
+                padding: 0 15px;
+            }
+
+            .about-us .quote {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .about-img {
+                margin-bottom: 20px;
+            }
+
+            .about-us .sub-title {
+                display: block;
+                margin: 0 0 5px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .about-us h4 {
+                font-size: 24px;
+            }
+
+            .about-us .sub-title {
+                font-size: 12px;
+            }
+
+            .about-us .quote-text {
+                font-size: 16px;
+            }
+
+            .about-us .about-description {
+                font-size: 14px;
+            }
+
+            .social-icons {
+                flex-wrap: wrap;
+            }
+
+            .social-icons .social-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .social-icons .social-icon i {
+                font-size: 18px;
+            }
+        }
+    </style>
+    <!-- ***** Services Area Starts ***** -->
+    <section class="our-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading text-center">
+                        <h2 class="section-title">Bizning Xizmatlarimiz</h2>
+                        <span class="section-subtitle">Siz bu bo'limda bizning xizmatlarimiz haqida ma'lumot olishingiz mumkun</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="service-item">
+                        <h4 class="service-title">Online Kiyim Do'kon</h4>
+                        <p class="service-description">Ayollar, Erkaklar, Bolalar va Aksessuarlar Eng zamonaviy Yevropa
+                            va Xitoy mahsulotlari</p>
+                        <div class="service-image">
+                            <img src="{% static 'assets/images/service-01.jpg' %}" alt="Online Kiyim Do'kon">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="service-item">
+                        <h4 class="service-title">Go'zallik Saloni</h4>
+                        <p class="service-description">Xizmatlar bilan tanishing</p>
+                        <div class="service-image">
+                            <img src="{% static 'assets/images/bautysalon.jpg' %}" alt="Go'zallik Saloni">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="service-item">
+                        <h4 class="service-title">Reklama</h4>
+                        <p class="service-description">Bizda Reklama Xizmati ham mavjud va u pullik, Reklama sayt,
+                            instagram, telegram ijtimoiy tarmoqlari birida beriladi</p>
+                        <div class="service-image">
+                            <img src="{% static 'assets/images/musliimashop.png' %}" alt="Reklama">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Services Area Ends ***** -->
+{% endblock %}
